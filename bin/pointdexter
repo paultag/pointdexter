@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ "x$POINTDEX_OUTPUT" == "x" ]; then
+    export POINTDEX_OUTPUT="../"
+    echo "I: No pointdex output, using $POINTDEX_OUTPUT"
+fi
+
+if [ "x$POINTDEX_CHECKS" == "x" ]; then
+    export POINTDEX_CHECKS="/usr/share/pointdexter/checks"
+    echo "I: No pointdex checks, using $POINTDEX_CHECKS"
+fi
+
+for x in $(ls $POINTDEX_CHECKS); do
+    echo "N: Running: $x"
+    $POINTDEX_CHECKS/$x > $POINTDEX_OUTPUT/$x.pointdex
+done
