@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for fil in $(find . -type f -name "*py"); do
+    flake8 $fil
+done
