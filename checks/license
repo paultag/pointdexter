@@ -1,0 +1,11 @@
+#!/bin/bash
+
+licensecheck --recursive . | sed s/.\*:\ //g | sort | uniq -c
+
+echo ""
+echo "==============================="
+echo "       Verbose output:"
+echo "==============================="
+echo ""
+
+licensecheck --recursive --copyright .
