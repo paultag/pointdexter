@@ -22,8 +22,8 @@ for line in lines:
 
     ret.append({
         "file": fil,
-        "license": license,
-        "copyright": copyright
+        "tag": license,
+        "description": copyright
     })
 
 print json.dumps({

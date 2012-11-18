@@ -10,7 +10,16 @@ if [ "x$POINTDEX_CHECKS" == "x" ]; then
     echo "I: No pointdex checks, using $POINTDEX_CHECKS"
 fi
 
+PUF=$POINTDEX_OUTPUT/pointdexter.pointupload
+
+if [ -e $PUF ]; then
+    rm $PUF
+fi
+touch $PUF
+
 for x in $(ls $POINTDEX_CHECKS); do
     echo "N: Running: $x"
     $POINTDEX_CHECKS/$x > $POINTDEX_OUTPUT/$x.pointdex
+    HASH=$(sha256sum $POINTDEX_OUTPUT/$x.pointdex | awk '{print $1}')
+    echo "$x.pointdex $HASH" > $PUF
 done

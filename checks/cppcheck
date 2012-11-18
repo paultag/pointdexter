@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+
+from pointdexter.runner import run_command
+from collections import defaultdict
+import json
+
+templ = "{file}    {id}    {line}    {severity}    {message}"
+
+stdout, stderr, exit = run_command([
+    "cppcheck",
+    ".",
+    "-q",
+    "--enable=all",
+    "--template",
+    templ
+])
+
+ret = defaultdict(list)
+
+for line in stderr.splitlines():
+    fil, eyedee, line, severity, message = line.split("    ")
+    ret[severity].append({
+        "file": fil,
+        "tag": eyedee,
+        "description": "%s @ line %s" % (message, line)
+    })
+
+print json.dumps({
+    "data": ret,
+    "type": "cppcheck"
+})
