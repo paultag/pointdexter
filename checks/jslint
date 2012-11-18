@@ -1,5 +1,0 @@
-#!/bin/bash
-
-for fil in $(find . -type f -name "*js"); do
-    jslint $fil
-done

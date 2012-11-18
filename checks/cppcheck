@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [ "x$(find . -type f -name "*c[++|c|pp|xx]")" == "x" ]; then
-    echo "No C++ files found."
-    exit 0
-fi
-
-cppcheck --enable=all . 2>&1
