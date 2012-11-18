@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+
+from pointdexter.runner import run_command
+import json
+
+ret = []
+
+(stdout, stderr, exit) = run_command([
+    "licensecheck",
+    "-m",
+    "-r",
+    ".",
+])
+lines = stdout.splitlines()
+for line in lines:
+    fil, line = line.split("\t", 1)
+    if "\t" in line:
+        license, copyright = line.split("\t", 1)
+    else:
+        license = line
+        copyright = None
+
+    ret.append({
+        "file": fil,
+        "license": license,
+        "copyright": copyright
+    })
+
+print json.dumps({
+    "data": {
+        "info": ret,
+    },
+    "type": "licensecheck"
+})
