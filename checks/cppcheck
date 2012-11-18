@@ -22,7 +22,8 @@ for line in stderr.splitlines():
     ret[severity].append({
         "file": fil,
         "tag": eyedee,
-        "description": "%s @ line %s" % (message, line)
+        "line": line,
+        "description": message
     })
 
 print json.dumps({
