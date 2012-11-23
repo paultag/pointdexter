@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+
+from pointdexter.runner import run_command
+from collections import defaultdict
+import json
+import re
+
+stdout, stderr, exit = run_command([
+    "sh",
+    "-c",
+    "find -type f | sim_text -iepTt 75"
+])
+
+rgx = re.compile(
+    r"(?P<file>.*) consists for (?P<pct>\d+) % of (?P<efile>.*) material"
+)
+
+ret = defaultdict(list)
+for line in stdout.splitlines():
+    minf = rgx.match(line).groupdict()
+    ret['info'].append({
+        "file": minf['efile'],
+        "description": line,
+        "tag": "file-is-similar"
+    })
+
+
+print json.dumps({
+    "data": ret,
+    "type": "suspicious-source"
+})
