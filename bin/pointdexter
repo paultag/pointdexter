@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PACKAGE=$1
+
 if [ "x$POINTDEX_OUTPUT" == "x" ]; then
     export POINTDEX_OUTPUT="../"
     echo "I: No pointdex output, using $POINTDEX_OUTPUT"
@@ -22,4 +24,8 @@ for x in $(ls $POINTDEX_CHECKS); do
     $POINTDEX_CHECKS/$x > $POINTDEX_OUTPUT/$x.pointdex
     HASH=$(sha256sum $POINTDEX_OUTPUT/$x.pointdex | awk '{print $1}')
     echo "$x.pointdex $HASH" > $PUF
+    if [ "x$PACKAGE" != "x" ]; then
+        echo "Uploading to the debuild server."
+        result $POINTDEX_OUTPUT/$x.pointdex $PACKAGE
+    fi
 done

@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+
+from pointdexter.runner import run_command
+from collections import defaultdict
+import json
+
+stdout, stderr, exit = run_command([
+    "suspicious-source",
+    "-v"
+])
+
+
+ret = []
+for line in stdout.splitlines():
+    fil, tag = line.rsplit(" ", 1)
+    tag = tag[1:-1]
+    ret.append({
+        "file": fil,
+        "tag": tag
+    })
+
+
+print json.dumps({
+    "data": {
+        "info": ret
+    },
+    "type": "suspicious-source"
+})
