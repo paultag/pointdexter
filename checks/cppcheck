@@ -10,6 +10,8 @@ stdout, stderr, exit = run_command([
     "cppcheck",
     ".",
     "-q",
+    "-j",
+    "8",
     "--enable=all",
     "--template",
     templ
