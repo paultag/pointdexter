@@ -30,5 +30,6 @@ print json.dumps({
     "data": {
         "info": ret,
     },
+    "severity": "info",
     "type": "licensecheck"
 })

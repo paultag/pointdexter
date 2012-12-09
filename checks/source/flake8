@@ -22,7 +22,14 @@ for line in stdout.splitlines():
     typ = {'E': "error", "W": "warning"}[obj['tag'][0]]
     ret[typ].append(obj)
 
+severity = 'ok'
+if ret['warning'] != []:
+    severity = 'warning'
+if ret['error'] != []:
+    severity = 'error'
+
 print json.dumps({
     "data": ret,
+    "severity": severity,
     "type": "flake8"
 })

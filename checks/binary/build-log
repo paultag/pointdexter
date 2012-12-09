@@ -9,6 +9,11 @@ flags = {
     "error": "error",
 }
 
+but_not = {
+    "error": [
+        "-Werror"
+    ]
+}
 
 ret = defaultdict(list)
 
@@ -21,10 +26,25 @@ for fp in files:
         for line in open(fp, 'r').readlines():
             for flag in flags:
                 if flag in line:
-                    ret[flags[flag]].append(line)
+                    dont_append = False
+                    for nflag in but_not[flag]:
+                        if nflag in line:
+                            dont_append = True
+
+                    if not dont_append:
+                        ret[flags[flag]].append(line)
+
+
+severity = 'ok'
+if ret['warning'] != []:
+    severity = 'warning'
+
+if ret['error'] != []:
+    severity = 'error'
 
 
 print json.dumps({
     "data": ret,
+    "severity": severity,
     "type": "build-log"
 })

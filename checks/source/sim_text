@@ -27,5 +27,6 @@ for line in stdout.splitlines():
 
 print json.dumps({
     "data": ret,
+    "severity": "info",
     "type": "similar-source"
 })

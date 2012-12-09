@@ -28,7 +28,15 @@ for line in stderr.splitlines():
         "description": message
     })
 
+severity = 'ok'
+if ret['warning'] != []:
+    severity = 'warning'
+
+if ret['error'] != []:
+    severity = 'error'
+
 print json.dumps({
+    "severity": "error",
     "data": ret,
     "type": "cppcheck"
 })

@@ -21,8 +21,12 @@ for line in stdout.splitlines():
         "description": text
     })
 
+severity = 'ok'
+if ret['desktop-error'] != []:
+    severity = 'error'
 
 print json.dumps({
     "data": ret,
-    "type": "suspicious-source"
+    "severity": severity,
+    "type": "desktop-file-validate"
 })

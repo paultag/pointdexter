@@ -24,5 +24,6 @@ print json.dumps({
     "data": {
         "info": ret
     },
+    "severity": "info",
     "type": "suspicious-source"
 })

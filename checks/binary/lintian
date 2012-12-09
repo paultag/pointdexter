@@ -29,7 +29,15 @@ for line in stdout.splitlines():
         "description": msg
     })
 
+severity = 'ok'
+if ret['warning'] != []:
+    severity = 'warning'
+
+if ret['error'] != []:
+    severity = 'error'
+
 print json.dumps({
     "data": ret,
+    "severity": severity,
     "type": "lintian"
 })
