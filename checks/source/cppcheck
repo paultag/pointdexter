@@ -36,7 +36,7 @@ if ret['error'] != []:
     severity = 'error'
 
 print json.dumps({
-    "severity": "error",
+    "severity": severity,
     "data": ret,
     "type": "cppcheck"
 })
