@@ -31,5 +31,5 @@ for line in stdout.splitlines():
 
 print json.dumps({
     "data": ret,
-    "type": "cppcheck"
+    "type": "lintian"
 })

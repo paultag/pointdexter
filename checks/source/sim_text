@@ -5,8 +5,6 @@ from collections import defaultdict
 import json
 import re
 
-sys.exit(0)
-
 stdout, stderr, exit = run_command([
     "sh",
     "-c",

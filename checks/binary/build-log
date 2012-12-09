@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+from collections import defaultdict
+import json
+import os
+
+flags = {
+    "warning": "warning",
+    "error": "error",
+}
+
+
+ret = defaultdict(list)
+
+
+files = os.listdir(".")
+for fp in files:
+    if fp.endswith(".build"):
+        if os.path.islink(fp):
+            continue
+        for line in open(fp, 'r').readlines():
+            for flag in flags:
+                if flag in line:
+                    ret[flags[flag]].append(line)
+
+
+print json.dumps({
+    "data": ret,
+    "type": "build-log"
+})
