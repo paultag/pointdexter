@@ -1,14 +1,20 @@
 #!/bin/bash
 
-PACKAGE=$1
+PACKAGE=$2
+SUITE=$1
 
 if [ "x$POINTDEX_OUTPUT" == "x" ]; then
     export POINTDEX_OUTPUT="../"
     echo "I: No pointdex output, using $POINTDEX_OUTPUT"
 fi
 
+if [ "x$SUITE" == "x" ]; then
+    echo "I: No suite given, assuming source."
+    SUITE="source"
+fi
+
 if [ "x$POINTDEX_CHECKS" == "x" ]; then
-    export POINTDEX_CHECKS="/usr/share/pointdexter/checks"
+    export POINTDEX_CHECKS="/usr/share/pointdexter/checks/${SUITE}"
     echo "I: No pointdex checks, using $POINTDEX_CHECKS"
 fi
 

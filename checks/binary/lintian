@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+from pointdexter.runner import run_command
+from collections import defaultdict
+import json
+
+
+stdout, stderr, exit = run_command([
+    "sh",
+    "-c",
+    "lintian -IE --pedantic *changes"
+])
+
+mapping = {
+    "I": "info",
+    "W": "warning",
+    "P": "pedantic-nitpick",
+    "E": "error",
+    "X": "experimental",
+    "N": "note"
+}
+
+ret = defaultdict(list)
+
+for line in stdout.splitlines():
+    sev, msg = line.split(": ", 1)
+    severity = mapping[sev]
+    ret[severity].append({
+        "description": msg
+    })
+
+print json.dumps({
+    "data": ret,
+    "type": "cppcheck"
+})
